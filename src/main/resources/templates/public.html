@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Public · Security Playground</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div class="page">
+    <nav th:replace="~{fragments :: nav}"></nav>
+
+    <main class="card">
+        <h1>Public page</h1>
+        <p class="lead">Anyone can see this — no login required.</p>
+        <p>This route is whitelisted with <code>permitAll()</code> in <code>SecurityConfig</code>.</p>
+        <a class="backlink" th:href="@{/}">← Back home</a>
+    </main>
+
+    <footer>Spring Boot 4.1 · Java 25 · Spring Security</footer>
+</div>
+</body>
+</html>

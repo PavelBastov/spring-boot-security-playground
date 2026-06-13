@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Profile · Security Playground</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div class="page">
+    <nav th:replace="~{fragments :: nav}"></nav>
+
+    <main class="card">
+        <h1>Your profile</h1>
+        <p class="lead">Details pulled from the current <code>Authentication</code>.</p>
+
+        <ul class="pages">
+            <li><code>name</code> <span class="desc" sec:authentication="name">user</span></li>
+            <li><code>authorities</code> <span class="desc" sec:authentication="authorities">[]</span></li>
+        </ul>
+
+        <div class="callout" sec:authorize="hasRole('ADMIN')">
+            You also hold the <span class="badge badge--admin">Admin</span> role —
+            visit <a th:href="@{/admin}">/admin</a>.
+        </div>
+
+        <a class="backlink" th:href="@{/}">← Back home</a>
+    </main>
+
+    <footer>Spring Boot 4.1 · Java 25 · Spring Security</footer>
+</div>
+</body>
+</html>

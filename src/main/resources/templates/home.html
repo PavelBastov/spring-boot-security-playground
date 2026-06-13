@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home · Security Playground</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div class="page">
+    <nav th:replace="~{fragments :: nav}"></nav>
+
+    <main class="card">
+        <h1>Spring Security Playground</h1>
+
+        <p class="lead" sec:authorize="!isAuthenticated()">
+            You’re browsing as a guest. Log in to unlock the protected pages.
+        </p>
+        <p class="lead" sec:authorize="isAuthenticated()">
+            Signed in as <strong sec:authentication="name">user</strong> —
+            authorities <code sec:authentication="authorities">[]</code>.
+        </p>
+
+        <h2>Pages</h2>
+        <ul class="pages">
+            <li>
+                <code>/public</code>
+                <span class="desc">Open to everyone — no authentication.</span>
+            </li>
+            <li>
+                <code>/profile</code>
+                <span class="desc">Any authenticated user.</span>
+            </li>
+            <li>
+                <code>/admin</code>
+                <span class="desc">Requires the <span class="badge badge--admin">Admin</span> role.</span>
+            </li>
+        </ul>
+
+        <div class="callout" sec:authorize="!isAuthenticated()">
+            Try <code>user / password</code> or <code>admin / password</code>.
+        </div>
+    </main>
+
+    <footer>Spring Boot 4.1 · Java 25 · Spring Security</footer>
+</div>
+</body>
+</html>

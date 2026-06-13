@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Log in · Security Playground</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div class="page">
+    <nav th:replace="~{fragments :: nav}"></nav>
+
+    <main class="card">
+        <h1>Log in</h1>
+        <p class="lead">Use one of the demo accounts below.</p>
+
+        <div class="alert alert--error" th:if="${param.error}">
+            Invalid username or password.
+        </div>
+        <div class="alert alert--info" th:if="${param.logout}">
+            You have been logged out.
+        </div>
+
+        <form class="form" th:action="@{/login}" method="post">
+            <div class="field">
+                <label for="username">Username</label>
+                <input id="username" type="text" name="username" autofocus>
+            </div>
+            <div class="field">
+                <label for="password">Password</label>
+                <input id="password" type="password" name="password">
+            </div>
+            <button type="submit">Sign in</button>
+        </form>
+
+        <div class="callout">
+            Try <code>user / password</code> or <code>admin / password</code>.
+        </div>
+    </main>
+
+    <footer>Spring Boot 4.1 · Java 25 · Spring Security</footer>
+</div>
+</body>
+</html>
