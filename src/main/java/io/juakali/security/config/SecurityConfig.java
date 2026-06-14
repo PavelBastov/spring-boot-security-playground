@@ -40,7 +40,8 @@ public class SecurityConfig {
             .logoutSuccessUrl("/?logout")
             .permitAll()
         )
-        .addFilterBefore(new ProhibitedFilter(), AuthorizationFilter.class);
+        .addFilterBefore(new ProhibitedFilter(), AuthorizationFilter.class)
+        .addFilterBefore(new RobotAuthenticationFilter(), AuthorizationFilter.class);
     return http.build();
   }
 
