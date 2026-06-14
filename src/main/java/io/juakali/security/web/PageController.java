@@ -9,28 +9,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class PageController {
 
-	@GetMapping("/")
-	String home() {
-		return "home";
-	}
+  @GetMapping("/")
+  String home() {
+    return "home";
+  }
 
-	@GetMapping("/public")
-	String publicPage() {
-		return "public";
-	}
+  @GetMapping("/public")
+  String publicPage() {
+    return "public";
+  }
 
-	@GetMapping("/profile")
-	String profile() {
-		return "profile";
-	}
+  @GetMapping("/profile")
+  String profile() {
+    return "profile";
+  }
 
-	@GetMapping("/admin")
-	String admin() {
-		return "admin";
-	}
+  @GetMapping("/admin")
+  String admin() {
+    return "admin";
+  }
 
-	@GetMapping("/login")
-	String login() {
-		return "login";
-	}
+  @GetMapping("/login")
+  String login() {
+    return "login";
+  }
 }
