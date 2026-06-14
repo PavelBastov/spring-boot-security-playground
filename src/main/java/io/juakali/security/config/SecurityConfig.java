@@ -1,8 +1,12 @@
 package io.juakali.security.config;
 
+import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -40,8 +44,10 @@ public class SecurityConfig {
             .logoutSuccessUrl("/?logout")
             .permitAll()
         )
+        .httpBasic(Customizer.withDefaults())
         .addFilterBefore(new ProhibitedFilter(), AuthorizationFilter.class)
-        .addFilterBefore(new RobotAuthenticationFilter(), AuthorizationFilter.class);
+        .addFilterBefore(new RobotAuthenticationFilter(), AuthorizationFilter.class)
+        .authenticationProvider(new PavelAuthenticationProvider());
     return http.build();
   }
 
@@ -69,5 +75,17 @@ public class SecurityConfig {
     // Delegating encoder: stores hashes with a {bcrypt}-style prefix so you can
     // migrate algorithms later without breaking existing passwords.
     return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+  }
+
+  @Bean
+  ApplicationListener<AuthenticationSuccessEvent> listener() {
+    return (event -> {
+      Authentication auth = event.getAuthentication();
+      System.out.printf(
+          "🎉[%s] logged in as [%s]%n",
+          auth.getName(),
+          auth.getClass().getSimpleName()
+      );
+    });
   }
 }
